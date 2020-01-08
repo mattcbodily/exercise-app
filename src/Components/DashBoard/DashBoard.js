@@ -8,7 +8,6 @@ const DashBoard = (props) => {
         axios.get('/api/user').then(res => {
             setUser(res.data)
         }).catch(err => {
-            console.log(err)
             props.history.push('/')
         })
     }, [props.history])
