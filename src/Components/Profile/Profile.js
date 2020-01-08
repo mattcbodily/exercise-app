@@ -1,21 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
-const DashBoard = (props) => {
-    const [user, setUser] = useState({})
+const Profile = (props) => {
+    const [user, setUser] = useState({});
 
     useEffect(() => {
         axios.get('/api/user').then(res => {
             setUser(res.data)
         }).catch(err => {
-            console.log(err)
-            props.history.push('/')
+            props.history.push('')
         })
     }, [props.history])
-
+    
     return (
-        <div>DashBoard Component</div>
+        <div>
+            <p>{user.email}</p>
+            <p>{user.username}</p>
+        </div>
     )
 }
 
-export default DashBoard;
+export default Profile;
