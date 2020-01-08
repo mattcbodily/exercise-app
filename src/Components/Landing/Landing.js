@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import './Landing.scss';
 import bike from '../../assets/road-bike.png';
 
@@ -14,9 +15,24 @@ const Landing = () => {
         setShowRegister(!showRegister)
     }
 
+    const login = () => {
+        axios.post('/api/login', {email, password}).then(res => {
+            //route to dashboard here
+        }).catch(err => console.log(err))
+    }
+
+    const register = () => {
+        if(password !== verPassword){
+            alert("Passwords don't match")
+        }
+        axios.post('/api/register', {email, password}).then(res => {
+            //route to dashboard here(potentially a first time login route?)
+        }).catch(err => console.log(err))
+    }
+
     return (
-        <div class='landing'>
-            <img src={bike} alt='road-bike' class='modal-image'/>
+        <div className='landing'>
+            <img src={bike} alt='road-bike' className='modal-image'/>
             <h1>AppName Here</h1>
             <input 
                 value={email} 
@@ -31,7 +47,7 @@ const Landing = () => {
             {!showRegister
             ? (
                 <>
-                    <button>Login</button>
+                    <button onClick={login}>Login</button>
                     <p onClick={toggleRegister}>Register Here</p>
                 </>
             ) : (
@@ -41,7 +57,7 @@ const Landing = () => {
                         value={verPassword} 
                         maxLength='16'
                         onChange={(e) => setVerPassword(e.target.value)}/>
-                    <button>Register</button>
+                    <button onClick={register}>Register</button>
                     <p onClick={toggleRegister}>Login Here</p>
                 </>
             )}
