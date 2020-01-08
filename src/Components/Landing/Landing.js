@@ -3,7 +3,7 @@ import axios from 'axios';
 import './Landing.scss';
 import bike from '../../assets/road-bike.png';
 
-const Landing = () => {
+const Landing = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [verPassword, setVerPassword] = useState('');
@@ -17,7 +17,7 @@ const Landing = () => {
 
     const login = () => {
         axios.post('/api/login', {email, password}).then(res => {
-            //route to dashboard here
+            props.history.push('/dashboard')
         }).catch(err => console.log(err))
     }
 
@@ -27,6 +27,7 @@ const Landing = () => {
         }
         axios.post('/api/register', {email, password}).then(res => {
             //route to dashboard here(potentially a first time login route?)
+            props.history.push('/dashboard')
         }).catch(err => console.log(err))
     }
 

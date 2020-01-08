@@ -17,19 +17,19 @@ module.exports = {
         session.user = createdUser[0];
         res.status(201).send(session.user);
     },
-    login: (req, res) => {
+    login: async(req, res) => {
         const {email, password} = req.body,
         {session} = req,
         db = req.app.get('db');
 
-        let user = db.auth.check_user({email});
-        if(!user){
-            res.status(400).send('Email is incorrect');
+        let user = await db.auth.check_user({email});
+        if(!user[0]){
+            return res.status(400).send('Email is incorrect');
         }
 
         const authorized = bcrypt.compareSync(password, user[0].password);
         if(!authorized){
-            res.status(400).send('Password is incorrect');
+            return res.status(400).send('Password is incorrect');
         }
 
         delete user[0].password
