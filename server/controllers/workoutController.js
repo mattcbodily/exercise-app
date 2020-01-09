@@ -1,5 +1,6 @@
 module.exports = {
     getWorkouts: (req, res) => {
+        console.log('hit', req.params)
         const {id} = req.params,
               db = req.app.get('db');
         
@@ -11,7 +12,7 @@ module.exports = {
         const {id, workoutType, workoutTime, workoutDistance, workoutDate} = req.body,
               db = req.app.get('db');
         
-        db.workout.post_workout({id, workoutType, workoutTime, workoutDistance, workoutDate})
+        db.workout.post_workout({id, workoutType, workoutTime: +workoutTime, workoutDistance: +workoutDistance, workoutDate})
         .then(res => res.sendStatus(201))
         .catch(err => res.status(500).send(err))
     }

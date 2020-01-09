@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 import Workout from '../Workout/Workout';
 
 const DashBoard = (props) => {
@@ -14,12 +15,19 @@ const DashBoard = (props) => {
         })
     }, [props.history])
 
+    const toggleWorkoutView = () => {
+        setAddWorkout(!addWorkout)
+    }
+
     return (
         <div>
-            <button onClick={() => setAddWorkout(!addWorkout)}>Add a Workout</button>
+            <button onClick={toggleWorkoutView}>Add a Workout</button>
             {addWorkout
-            ? <Workout />
+            ? <Workout id={user.member_id} toggleFn={toggleWorkoutView}/>
             : null}
+            <section>
+                <Link to='workout-dashboard'>View Workouts</Link>
+            </section>
         </div>
     )
 }
