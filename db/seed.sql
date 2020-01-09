@@ -13,3 +13,16 @@ create table if not exists workout (
     workout_distance decimal,
     workout_date varchar(30)
 );
+
+create table if not exists battle (
+    battle_id serial primary key,
+    battle_name varchar(20),
+    battle_category varchar(30),
+    battle_condition varchar(30)
+);
+
+create table if not exists member_battle_join (
+    member_battle_join_id serial primary key,
+    member_id int references member(member_id),
+    battle_id int references battle(battle_id)
+);
