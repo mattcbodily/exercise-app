@@ -5,6 +5,7 @@ const express = require('express'),
       {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env,
       authCtrl = require('./controllers/authController'),
       workCtrl = require('./controllers/workoutController'),
+      battleCtrl = require('./controllers/battleController'),
       app = express();
 
 app.use(express.json());
@@ -32,6 +33,8 @@ app.get('/api/workout/:id', workCtrl.getWorkouts);
 app.post('/api/workout', workCtrl.postWorkout);
 
 //battle endpoints
+app.get('/api/battle/:id', battleCtrl.getUserBattles);
+app.post('/api/battle', battleCtrl.createBattle);
 
 const port = SERVER_PORT || 4040;
 app.listen(port, () => console.log(`Exercise Gamified at ${port}`));
